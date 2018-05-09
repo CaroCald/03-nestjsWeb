@@ -1,8 +1,12 @@
-import {Controller, Get, HttpCode, Post} from "@nestjs/common";
+import {Body, Controller, Delete, Get, HttpCode, Post} from "@nestjs/common";
 import {Param, Req} from "@nestjs/common/utils/decorators/route-params.decorator";
+import {Usuario, UsuarioService} from "./usuario.service";
 
 @Controller('Pelicula')
 export class AppPeliculaController{
+
+    constructor(private usuarioService: UsuarioService){
+    }
     peliculas: Pelicula[]=[];
     @Get('mostrarCartelera')
     mostrarCartelera(){
@@ -22,6 +26,23 @@ anadirCartelera(@Param() parametros){
         return this.peliculas;
     }
  */
+
+    @Get('recuperarUsuarios')
+    recuperarUsuarios(){
+        return this.usuarioService.arregloUsuarios
+    }
+    @Post('anadirUsuario')
+    anadirUsuario(@Body() bodyParams){
+        const usuario= new Usuario(bodyParams.nombre, bodyParams.apellido, bodyParams.edad);
+        return this.usuarioService.agregarUsuario(usuario);
+    }
+
+
+    @Delete('borrarUsuario')
+    borrarUsuario(@Body() bodyParams){
+        const usuario= new Usuario(bodyParams.nombre, bodyParams.apellido, bodyParams.edad);
+        return this.usuarioService.borrarUsuarios(usuario);
+    }
 
 }
 
