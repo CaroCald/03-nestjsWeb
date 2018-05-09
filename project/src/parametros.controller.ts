@@ -1,7 +1,29 @@
-import {Body, Controller, Get, Headers, Param, Post, Query, Req, Res} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Headers, Param, Post, Query, Req, Res} from "@nestjs/common";
+import {Usuario, UsuarioService} from "./usuario.service";
 
 @Controller('Parametros')
 export class ParametrosController{
+
+    constructor(private usuarioService: UsuarioService){
+    }
+
+    @Get('recuperarUsuarios')
+    recuperarUsuarios(){
+        return this.usuarioService.arregloUsuarios
+    }
+    @Post('anadirUsuario')
+    anadirUsuario(@Body() bodyParams){
+        const usuario= new Usuario(bodyParams.nombre, bodyParams.apellido, bodyParams.edad);
+        return this.usuarioService.agregarUsuario(usuario);
+    }
+
+    @Delete('borrarUsuario')
+    borrarUsuario(@Body() bodyParams){
+        const usuario= new Usuario(bodyParams.nombre, bodyParams.apellido, bodyParams.edad);
+        return this.usuarioService.borrarUsuarios(usuario);
+    }
+
+
     @Post('recuperar/:id')
     recuperarParametros(@Req() request,
                         @Res() response,
