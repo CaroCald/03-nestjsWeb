@@ -8,7 +8,6 @@ export class AppController {
       let contador=0;
       console.log('Entro al metodo');
       contador++;
-      let datosArchivos;
       let html= fs.readFileSync(__dirname+'/html/index.html', 'utf8');
       html=html.replace('{{variable}}', contador);
       return html;

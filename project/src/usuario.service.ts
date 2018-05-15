@@ -3,7 +3,7 @@ import {Component} from "@nestjs/common";
 @Component()
 export class UsuarioService{
     arregloUsuarios: Usuario[]=[];
-    agregarUsuario(usuario:Usuario){
+    agregarUsuario(usuario:Usuario):Usuario[]{
         this.arregloUsuarios.push(usuario);
         return this.arregloUsuarios;
     }
